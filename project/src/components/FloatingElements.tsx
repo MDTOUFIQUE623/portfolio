@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { Canvas } from '@react-three/fiber';
-import { OrbitControls, Float, Stars } from '@react-three/drei';
+import { OrbitControls, Stars } from '@react-three/drei';
 
 const FloatingElement = ({ className = "" }) => (
   <motion.div

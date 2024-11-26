@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion';
-import { FiCalendar, FiClock, FiArrowLeft } from 'react-icons/fi';
+import { FiArrowLeft, FiCalendar, FiClock } from 'react-icons/fi';
 import { useNavigate, useParams } from 'react-router-dom';
 import { marked } from 'marked';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { atomDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import TableOfContents from '../components/blog/TableOfContents';
 import ReadingProgress from '../components/blog/ReadingProgress';
 import ShareButtons from '../components/blog/ShareButtons';
@@ -303,9 +301,11 @@ TailwindCSS provides a powerful toolkit for modern UI design, enabling developer
 
 // Create a custom renderer for marked
 const renderer = new marked.Renderer();
-renderer.code = (code, language) => {
+renderer.code = (code: string, language: string | undefined) => {
   const validLanguage = language || 'text';
-  return `<pre><code class="language-${validLanguage}">${code}</code></pre>`;
+  return `<div class="code-block">
+    <pre><code class="language-${validLanguage}">${code}</code></pre>
+  </div>`;
 };
 
 // Configure marked with proper types
@@ -313,19 +313,7 @@ marked.setOptions({
   renderer,
   gfm: true,
   breaks: true,
-  highlight: (code, lang) => {
-    const language = lang || 'text';
-    try {
-      return SyntaxHighlighter.highlight(code, {
-        language,
-        style: atomDark,
-        showLineNumbers: true,
-        wrapLines: true,
-      });
-    } catch (err) {
-      return code;
-    }
-  },
+  pedantic: false
 });
 
 export default function BlogPost() {

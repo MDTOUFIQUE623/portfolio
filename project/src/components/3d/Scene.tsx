@@ -7,7 +7,13 @@ function Model({ url }: { url: string }) {
   return <primitive object={gltf.scene} />;
 }
 
-export function Scene({ modelUrl, scale = 1, position = [0, 0, 0] }) {
+interface SceneProps {
+  modelUrl: string;
+  scale?: number;
+  position?: [number, number, number];
+}
+
+export function Scene({ modelUrl }: SceneProps) {
   return (
     <Canvas camera={{ position: [0, 0, 5] }}>
       <ambientLight intensity={0.5} />

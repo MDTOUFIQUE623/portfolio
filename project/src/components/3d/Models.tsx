@@ -11,7 +11,7 @@ interface ModelProps {
 
 export function Laptop(props: ModelProps) {
   const group = useRef<Group>(null);
-  const { nodes, materials } = useGLTF('/models/laptop.glb');
+  const { nodes } = useGLTF('/models/laptop.glb');
 
   useFrame((state) => {
     if (group.current) {
@@ -28,7 +28,7 @@ export function Laptop(props: ModelProps) {
 
 export function Spaceship(props: ModelProps) {
   const group = useRef<Group>(null);
-  const { nodes, materials } = useGLTF('/models/spaceship.glb');
+  const { nodes } = useGLTF('/models/spaceship.glb');
 
   useFrame((state) => {
     if (group.current) {
@@ -46,7 +46,7 @@ export function Spaceship(props: ModelProps) {
 
 export function Island(props: ModelProps) {
   const group = useRef<Group>(null);
-  const { nodes, materials } = useGLTF('/models/island.glb');
+  const { nodes } = useGLTF('/models/island.glb');
 
   useFrame((state) => {
     if (group.current) {

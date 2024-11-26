@@ -28,7 +28,7 @@ export default function ShareButtons({ url, title }: ShareButtonsProps) {
         <LinkedinIcon size={32} round />
       </LinkedinShareButton>
       
-      <FacebookShareButton url={url} quote={title}>
+      <FacebookShareButton url={url} title={title}>
         <FacebookIcon size={32} round />
       </FacebookShareButton>
     </motion.div>

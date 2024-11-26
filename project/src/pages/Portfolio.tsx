@@ -165,10 +165,10 @@ export default function Portfolio() {
         const projects = sortedRepos.map((repo: Repository) => ({
           title: repo.name,
           description: repo.description || 'No description available',
-          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80", // Default image
-          technologies: repo.topics,
+          image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+          technologies: repo.topics.length > 0 ? repo.topics : ['Not specified'],
           githubLink: repo.html_url,
-          liveLink: repo.homepage
+          liveLink: repo.homepage || undefined
         }));
 
         setRepos(projects);
@@ -223,9 +223,17 @@ export default function Portfolio() {
         </motion.div>
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {repos.map((project) => (
-            <ProjectCard key={project.title} project={project} />
-          ))}
+          {repos.map((repo: Repository) => {
+            const project: Project = {
+              title: repo.name,
+              description: repo.description || 'No description available',
+              image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80",
+              technologies: repo.topics.length > 0 ? repo.topics : ['Not specified'],
+              githubLink: repo.html_url,
+              liveLink: repo.homepage || undefined
+            };
+            return <ProjectCard key={project.title} project={project} />;
+          })}
         </div>
       )}
 
