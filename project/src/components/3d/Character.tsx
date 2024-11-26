@@ -1,6 +1,5 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import { Box, MeshDistortMaterial } from '@react-three/drei';
 import { Group } from 'three';
 
 interface CharacterProps {
@@ -21,16 +20,14 @@ export function Character(props: CharacterProps) {
 
   return (
     <group ref={group} {...props}>
-      <Box args={[1, 1, 1]}>
-        <MeshDistortMaterial
+      <mesh>
+        <boxGeometry args={[1, 1, 1]} />
+        <meshStandardMaterial
           color="#4c1d95"
-          attach="material"
-          distort={0.5}
-          speed={2}
           roughness={0.2}
           metalness={0.8}
         />
-      </Box>
+      </mesh>
     </group>
   );
 } 

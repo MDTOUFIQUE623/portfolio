@@ -9,9 +9,15 @@ interface ModelProps {
   rotation?: [number, number, number];
 }
 
+type GLTFResult = {
+  nodes: any;
+  materials: any;
+  scene: THREE.Group;
+};
+
 export function Laptop(props: ModelProps) {
   const group = useRef<Group>(null);
-  const { nodes } = useGLTF('/models/laptop.glb');
+  const gltf = useGLTF('/models/laptop.glb') as unknown as GLTFResult;
 
   useFrame((state) => {
     if (group.current) {
@@ -20,15 +26,15 @@ export function Laptop(props: ModelProps) {
   });
 
   return (
-    <group ref={group} {...props} dispose={null}>
-      <primitive object={nodes.Laptop} />
+    <group ref={group} {...props}>
+      <primitive object={gltf.scene} />
     </group>
   );
 }
 
 export function Spaceship(props: ModelProps) {
   const group = useRef<Group>(null);
-  const { nodes } = useGLTF('/models/spaceship.glb');
+  const gltf = useGLTF('/models/spaceship.glb') as unknown as GLTFResult;
 
   useFrame((state) => {
     if (group.current) {
@@ -38,15 +44,15 @@ export function Spaceship(props: ModelProps) {
   });
 
   return (
-    <group ref={group} {...props} dispose={null}>
-      <primitive object={nodes.Spaceship} />
+    <group ref={group} {...props}>
+      <primitive object={gltf.scene} />
     </group>
   );
 }
 
 export function Island(props: ModelProps) {
   const group = useRef<Group>(null);
-  const { nodes } = useGLTF('/models/island.glb');
+  const gltf = useGLTF('/models/island.glb') as unknown as GLTFResult;
 
   useFrame((state) => {
     if (group.current) {
@@ -55,8 +61,8 @@ export function Island(props: ModelProps) {
   });
 
   return (
-    <group ref={group} {...props} dispose={null}>
-      <primitive object={nodes.Island} />
+    <group ref={group} {...props}>
+      <primitive object={gltf.scene} />
     </group>
   );
 }
