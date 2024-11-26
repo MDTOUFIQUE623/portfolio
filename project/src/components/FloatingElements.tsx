@@ -21,7 +21,7 @@ const FloatingElement = ({ className = "" }) => (
 const CodeBackground = () => (
   <div className="fixed inset-0 pointer-events-none opacity-10">
     <img 
-      src="/images/code-bg.jpg" 
+      src={`${import.meta.env.BASE_URL}images/code-bg.jpg`} 
       alt="Code Background"
       className="w-full h-full object-cover"
     />
@@ -33,7 +33,7 @@ const TechPattern = () => (
   <div 
     className="fixed inset-0 pointer-events-none opacity-5"
     style={{
-      backgroundImage: 'url(/images/tech-pattern.png)',
+      backgroundImage: `url(${import.meta.env.BASE_URL}images/tech-pattern.png)`,
       backgroundRepeat: 'repeat',
     }}
   />

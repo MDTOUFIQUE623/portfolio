@@ -4,14 +4,24 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "routes": [
-    { "handle": "filesystem" },
+    {
+      "src": "/assets/(.*)",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" },
+      "dest": "/assets/$1"
+    },
     {
       "src": "/images/(.*)",
+      "headers": { "cache-control": "public, max-age=31536000, immutable" },
       "dest": "/images/$1"
     },
     {
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    }
+  }
 } 
