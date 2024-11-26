@@ -2,8 +2,9 @@ services:
   - type: web
     name: portfolio
     env: static
-    buildCommand: cd project && npm install && npm run build
-    staticPublishPath: project/dist
+    rootDir: project
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
     pullRequestPreviewsEnabled: true
     headers:
       - path: /*
