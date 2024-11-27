@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FiArrowRight } from 'react-icons/fi';
 import { useNavigate } from 'react-router-dom';
+import { useTypewriter } from 'react-simple-typewriter';
 
 const FloatingShape = ({ className }: { className?: string }) => (
   <motion.div
@@ -20,6 +21,35 @@ const FloatingShape = ({ className }: { className?: string }) => (
 export default function Hero() {
   const navigate = useNavigate();
 
+  const [nameText] = useTypewriter({
+    words: ['MD TOUFIQUE'],
+    typeSpeed: 50,
+    delaySpeed: 500
+  });
+
+  const [codeText] = useTypewriter({
+    words: [`const Developer = {
+  name: "MD TOUFIQUE",
+  role: "Full Stack Developer",
+  skills: [
+    "React", "TypeScript",
+    "Node.js", "Next.js",
+    "MongoDB", "TailwindCSS"
+  ],
+  passion: "Building scalable web apps",
+  
+  code: () => {
+    while (true) {
+      learn();
+      create();
+      innovate();
+    }
+  }
+};`],
+    typeSpeed: 50,
+    delaySpeed: 1000,
+  });
+
   return (
     <section className="py-20 relative">
       <div className="grid md:grid-cols-2 gap-8 items-center">
@@ -37,10 +67,12 @@ export default function Hero() {
               transition={{ duration: 5, repeat: Infinity }}
               style={{ backgroundSize: '200% auto' }}
             >
-              MD TOUFIQUE
+              {nameText}
             </motion.span>
             <br />
-            <span className="text-2xl md:text-3xl text-gray-400">Full Stack Developer</span>
+            <span className="text-2xl md:text-3xl text-gray-400">
+              Full Stack Developer
+            </span>
           </motion.h1>
 
           <motion.p
@@ -74,7 +106,7 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="px-8 py-3 border border-purple-500 rounded-lg text-white hover:bg-purple-500/10 transition-colors cursor-pointer"
             >
-              Contact Us
+              Contact Me
             </motion.button>
           </motion.div>
         </div>
@@ -98,24 +130,8 @@ export default function Hero() {
           >
             <pre className="text-sm text-gray-300">
               <code>
-                {`const Developer = {
-  name: "MD TOUFIQUE",
-  role: "Full Stack Developer",
-  skills: [
-    "React", "TypeScript",
-    "Node.js", "Next.js",
-    "MongoDB", "TailwindCSS"
-  ],
-  passion: "Building scalable web apps",
-  
-  code: () => {
-    while (true) {
-      learn();
-      create();
-      innovate();
-    }
-  }
-};`}
+                {codeText}
+                <span className="animate-pulse">_</span>
               </code>
             </pre>
             

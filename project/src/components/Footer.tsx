@@ -12,7 +12,7 @@ const socialLinks = [
   {
     name: 'LinkedIn',
     icon: FiLinkedin,
-    url: 'https://www.linkedin.com/in/your-linkedin',  // Add your LinkedIn URL
+    url: 'https://www.linkedin.com/in/md-toufique-0b2b2b1b9/',
     color: 'hover:text-blue-400'
   },
   {

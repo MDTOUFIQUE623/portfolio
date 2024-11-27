@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { FiMail, FiPhone, FiMapPin, FiSend } from 'react-icons/fi';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import emailjs from '@emailjs/browser';
 
 interface ContactInfo {
   icon: any;
@@ -30,6 +31,11 @@ const contactInfo: ContactInfo[] = [
 ];
 
 export default function Contact() {
+  useEffect(() => {
+    // Initialize EmailJS
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  }, []);
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -38,32 +44,49 @@ export default function Contact() {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Create email content
-    const emailSubject = encodeURIComponent(formData.subject);
-    const emailBody = encodeURIComponent(
-      `Name: ${formData.name}\n` +
-      `Email: ${formData.email}\n\n` +
-      `Message:\n${formData.message}`
-    );
+    try {
+      // Replace these with your EmailJS credentials
+      const templateParams = {
+        from_name: formData.name,
+        from_email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+      };
 
-    // Open default email client with pre-filled content
-    window.location.href = `mailto:mdtoufiq6231@outlook.com?subject=${emailSubject}&body=${emailBody}`;
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        templateParams,
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
 
-    // Reset form after a short delay
-    setTimeout(() => {
+      // Show success notification
+      setShowNotification(true);
+      
+      // Reset form
       setFormData({
         name: '',
         email: '',
         subject: '',
         message: ''
       });
+      
+      // Hide notification after 5 seconds
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 5000);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please try again later.');
+    } finally {
       setIsSubmitting(false);
-    }, 1000);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -133,7 +156,7 @@ export default function Contact() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           onSubmit={handleSubmit}
-          className="space-y-6"
+          className="space-y-6 relative"
         >
           <div>
             <input
@@ -194,6 +217,18 @@ export default function Contact() {
               </>
             )}
           </motion.button>
+
+          {/* Notification */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ 
+              opacity: showNotification ? 1 : 0,
+              y: showNotification ? 0 : 20 
+            }}
+            className="absolute bottom-20 left-0 right-0 p-4 bg-gradient-to-r from-purple-500/20 to-blue-500/20 backdrop-blur-sm rounded-lg border border-purple-500/20 text-center text-white"
+          >
+            Thank you for reaching out! I'll get back to you soon. 🚀
+          </motion.div>
         </motion.form>
       </div>
     </div>
