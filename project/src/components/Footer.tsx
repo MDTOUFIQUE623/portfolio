@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { FiGithub, FiLinkedin, FiMail, FiArrowUp } from 'react-icons/fi';
+import { Link } from 'react-router-dom';
 
 const socialLinks = [
   {
@@ -93,7 +94,7 @@ export default function Footer() {
                     whileHover={{ x: 5 }}
                     className="text-gray-400 hover:text-purple-400 transition-colors"
                   >
-                    <a href={link.path}>{link.name}</a>
+                    <Link to={link.path}>{link.name}</Link>
                   </motion.li>
                 ))}
               </ul>
@@ -138,7 +139,7 @@ export default function Footer() {
             whileHover={{ scale: 1.05 }}
             className="text-gray-400 text-sm"
           >
-            © {new Date().getFullYear()} MD TOUFIQUE. All rights reserved.
+            {new Date().getFullYear()} MD TOUFIQUE. All rights reserved.
           </motion.p>
         </motion.div>
       </div>
